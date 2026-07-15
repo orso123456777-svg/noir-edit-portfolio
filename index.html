@@ -78,6 +78,12 @@
   }
   .tc::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--orange); animation:pulse 1.2s infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  .lang-btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:1px; background:none;
+    border:1px solid var(--line); color:var(--muted); padding:8px 12px; border-radius:3px; cursor:pointer;
+    transition:all .2s ease;
+  }
+  .lang-btn:hover{border-color:var(--teal); color:var(--text);}
   @media (max-width:760px){ .nav-links{display:none;} }
 
   /* ---------- HERO ---------- */
@@ -227,6 +233,7 @@
   }
   .contact h2{font-size:clamp(32px,6vw,56px); text-transform:uppercase; max-width:820px; margin:0 auto;}
   .contact-links{display:flex; gap:18px; justify-content:center; margin-top:38px; flex-wrap:wrap;}
+  .btn-icon{display:inline-flex; align-items:center; gap:9px;}
 
   footer{padding:30px 0; text-align:center; color:var(--muted); font-family:var(--mono); font-size:12px;}
 
@@ -263,28 +270,31 @@
   <nav class="wrap">
     <div class="logo">noir<span>.</span>edit</div>
     <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#work" data-i18n="nav_work">Work</a>
+      <a href="#services" data-i18n="nav_services">Services</a>
+      <a href="#process" data-i18n="nav_process">Process</a>
+      <a href="#about" data-i18n="nav_about">About</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
     </div>
-    <div class="tc" id="navTc">00:00:00:00</div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="tc" id="navTc">00:00:00:00</div>
+      <button id="langToggle" onclick="toggleLang()" class="lang-btn">UA</button>
+    </div>
   </nav>
 </header>
 
 <!-- ============ HERO ============ -->
 <section class="hero wrap">
   <div>
-    <h1>Video Editor<br>for <em>Brands</em> &amp; Creators</h1>
-    <p>I create engaging short-form videos, ads and motion design that help businesses stand out on social media.</p>
+    <h1 data-i18n-html="hero_title">Video Editor<br>for <em>Brands</em> &amp; Creators</h1>
+    <p data-i18n="hero_sub">I create engaging short-form videos, ads and motion design that help businesses stand out on social media.</p>
     <div class="btn-row">
-      <a href="#work" class="btn btn-primary">View Work</a>
-      <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      <a href="#work" class="btn btn-primary" data-i18n="btn_view_work">View Work</a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="btn_contact_me">Contact Me</a>
     </div>
   </div>
   <div class="showreel-frame">
-    <div class="sr-label">Showreel</div>
+    <div class="sr-label" data-i18n="sr_label">Showreel</div>
     <div class="sr-ratio">16:9</div>
     <div class="play-btn">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="6,4 20,12 6,20"/></svg>
@@ -297,7 +307,7 @@
 
 <!-- ============ EXPERTISE ============ -->
 <section class="wrap">
-  <div class="eyebrow">Expertise</div>
+  <div class="eyebrow" data-i18n="exp_eyebrow">Expertise</div>
   <div class="chip-row">
     <span class="chip">Finance</span>
     <span class="chip">Jewelry</span>
@@ -314,8 +324,8 @@
 <section class="alt" id="work">
   <div class="wrap">
     <div class="head-row">
-      <div class="eyebrow">Featured Work</div>
-      <h2>Selected Projects</h2>
+      <div class="eyebrow" data-i18n="work_eyebrow">Featured Work</div>
+      <h2 data-i18n="work_h2">Selected Projects</h2>
     </div>
     <div class="work-grid">
 
@@ -326,8 +336,8 @@
           <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,4 20,12 6,20"/></svg></div>
         </div>
         <div class="work-info">
-          <h3>Luxury Jewelry Ads</h3>
-          <p>Premium social ads for a jewelry brand.</p>
+          <h3 data-i18n="w1_title">Luxury Jewelry Ads</h3>
+          <p data-i18n="w1_desc">Premium social ads for a jewelry brand.</p>
           <div class="work-tags"><span class="tag-sm">Jewelry</span><span class="tag-sm">Paid Ads</span></div>
         </div>
       </div>
@@ -339,8 +349,8 @@
           <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,4 20,12 6,20"/></svg></div>
         </div>
         <div class="work-info">
-          <h3>Financial Advisor</h3>
-          <p>Educational Instagram Reels.</p>
+          <h3 data-i18n="w2_title">Financial Advisor</h3>
+          <p data-i18n="w2_desc">Educational Instagram Reels.</p>
           <div class="work-tags"><span class="tag-sm">Finance</span><span class="tag-sm">Reels</span></div>
         </div>
       </div>
@@ -351,8 +361,8 @@
           <div class="sr-ratio" style="pointer-events:none;">9:16</div>
         </div>
         <div class="work-info">
-          <h3>SaaS Promo</h3>
-          <p>Product walkthrough built to convert trial sign-ups.</p>
+          <h3 data-i18n="w3_title">SaaS Promo</h3>
+          <p data-i18n="w3_desc">Product walkthrough built to convert trial sign-ups.</p>
           <div class="work-tags"><span class="tag-sm">SaaS</span><span class="tag-sm">Promo</span></div>
         </div>
       </div>
@@ -364,8 +374,8 @@
           <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,4 20,12 6,20"/></svg></div>
         </div>
         <div class="work-info">
-          <h3>The Cost of Dream</h3>
-          <p>Cinematic motion design project — typography and pacing built for impact.</p>
+          <h3 data-i18n="w4_title">The Cost of Dream</h3>
+          <p data-i18n="w4_desc">Cinematic motion design project — typography and pacing built for impact.</p>
           <div class="work-tags"><span class="tag-sm">Motion</span><span class="tag-sm">Cinematic</span><span class="tag-sm">After Effects</span></div>
         </div>
       </div>
@@ -379,28 +389,28 @@
 <!-- ============ SERVICES ============ -->
 <section class="wrap" id="services">
   <div class="head-row">
-    <div class="eyebrow">Services</div>
-    <h2>What I Do</h2>
+    <div class="eyebrow" data-i18n="services_eyebrow">Services</div>
+    <h2 data-i18n="services_h2">What I Do</h2>
   </div>
   <div class="service-list">
     <div class="service-row">
       <div class="service-num">01</div>
-      <h3>Short Form Editing</h3>
+      <h3 data-i18n="svc1_title">Short Form Editing</h3>
       <div class="service-tags"><span class="tag-sm">Instagram</span><span class="tag-sm">TikTok</span><span class="tag-sm">YouTube Shorts</span></div>
     </div>
     <div class="service-row">
       <div class="service-num">02</div>
-      <h3>Commercial Ads</h3>
+      <h3 data-i18n="svc2_title">Commercial Ads</h3>
       <div class="service-tags"><span class="tag-sm">Facebook Ads</span><span class="tag-sm">Product Ads</span><span class="tag-sm">UGC</span></div>
     </div>
     <div class="service-row">
       <div class="service-num">03</div>
-      <h3>Motion Design</h3>
+      <h3 data-i18n="svc3_title">Motion Design</h3>
       <div class="service-tags"><span class="tag-sm">Animation</span><span class="tag-sm">Typography</span><span class="tag-sm">Transitions</span></div>
     </div>
     <div class="service-row">
       <div class="service-num">04</div>
-      <h3>Personal Brand Content</h3>
+      <h3 data-i18n="svc4_title">Personal Brand Content</h3>
       <div class="service-tags"><span class="tag-sm">Talking-head</span><span class="tag-sm">Podcast Clips</span><span class="tag-sm">Story-driven</span></div>
     </div>
   </div>
@@ -410,32 +420,32 @@
 <section class="alt" id="process">
   <div class="wrap">
     <div class="head-row">
-      <div class="eyebrow">Process</div>
-      <h2>How We Work Together</h2>
+      <div class="eyebrow" data-i18n="process_eyebrow">Process</div>
+      <h2 data-i18n="process_h2">How We Work Together</h2>
     </div>
     <div class="process-row">
       <div class="process-step">
         <div class="process-num">01</div>
-        <h3>Brief</h3>
-        <p>You share goals, footage and references.</p>
+        <h3 data-i18n="p1_title">Brief</h3>
+        <p data-i18n="p1_desc">You share goals, footage and references.</p>
       </div>
       <div class="process-connector"></div>
       <div class="process-step">
         <div class="process-num">02</div>
-        <h3>Editing</h3>
-        <p>I cut a first version built for retention.</p>
+        <h3 data-i18n="p2_title">Editing</h3>
+        <p data-i18n="p2_desc">I cut a first version built for retention.</p>
       </div>
       <div class="process-connector"></div>
       <div class="process-step">
         <div class="process-num">03</div>
-        <h3>Feedback</h3>
-        <p>You review and request revisions.</p>
+        <h3 data-i18n="p3_title">Feedback</h3>
+        <p data-i18n="p3_desc">You review and request revisions.</p>
       </div>
       <div class="process-connector"></div>
       <div class="process-step">
         <div class="process-num">04</div>
-        <h3>Delivery</h3>
-        <p>Final export, ready to publish.</p>
+        <h3 data-i18n="p4_title">Delivery</h3>
+        <p data-i18n="p4_desc">Final export, ready to publish.</p>
       </div>
     </div>
   </div>
@@ -443,16 +453,16 @@
 
 <!-- ============ ABOUT ============ -->
 <section class="wrap" id="about">
-  <div class="eyebrow">About</div>
+  <div class="eyebrow" data-i18n="about_eyebrow">About</div>
   <div class="about-block">
-    <p>I specialize in short-form editing with a focus on <em>clean visuals</em>, fast pacing and storytelling. My goal is to create videos that keep viewers watching and help brands communicate their message effectively.</p>
+    <p data-i18n-html="about_p">I specialize in short-form editing with a focus on <em>clean visuals</em>, fast pacing and storytelling. My goal is to create videos that keep viewers watching and help brands communicate their message effectively.</p>
   </div>
 </section>
 
 <!-- ============ SOFTWARE ============ -->
 <section class="alt">
   <div class="wrap">
-    <div class="eyebrow">Software</div>
+    <div class="eyebrow" data-i18n="software_eyebrow">Software</div>
     <div class="soft-row">
       <div class="soft-chip"><span class="soft-badge" style="background:#00005B;">Ae</span>After Effects</div>
       <div class="soft-chip"><span class="soft-badge" style="background:#00005B;">Pr</span>Premiere Pro</div>
@@ -463,11 +473,11 @@
 
 <!-- ============ TESTIMONIAL ============ -->
 <section class="wrap">
-  <div class="eyebrow">Testimonial</div>
+  <div class="eyebrow" data-i18n="testi_eyebrow">Testimonial</div>
   <div class="testi-card">
-    <div class="testi-context">The brief: turn face-to-camera footage into polished, engaging Reels for a renovation company's ads and Instagram content.</div>
-    <p class="quote">"Great work. Really fast turnaround times. I will surely recommend."</p>
-    <div class="who">— Client, Renovation Company</div>
+    <div class="testi-context" data-i18n="testi_context">The brief: turn face-to-camera footage into polished, engaging Reels for a renovation company's ads and Instagram content.</div>
+    <p class="quote" data-i18n="testi_quote">"Great work. Really fast turnaround times. I will surely recommend."</p>
+    <div class="who" data-i18n="testi_who">— Client, Renovation Company</div>
   </div>
 </section>
 
@@ -475,11 +485,21 @@
 
 <!-- ============ CONTACT ============ -->
 <section class="contact wrap" id="contact">
-  <div class="eyebrow" style="justify-content:center;">Contact</div>
-  <h2>Let's create something<br>people actually watch.</h2>
+  <div class="eyebrow" style="justify-content:center;" data-i18n="contact_eyebrow">Contact</div>
+  <h2 data-i18n-html="contact_h2">Let's create something<br>people actually watch.</h2>
   <div class="contact-links">
-    <button class="btn btn-primary" onclick="openContactModal()" style="border:none; font-family:inherit;">Email Me</button>
-    <a href="https://t.me/rstrgvmxm" class="btn btn-ghost" target="_blank" rel="noopener">Message on Telegram</a>
+    <button class="btn btn-primary btn-icon" onclick="openContactModal()" style="border:none; font-family:inherit;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M4 6h16v12H4z"/><path d="M4 6l8 7 8-7"/></svg>
+      <span data-i18n="btn_email">Email Me</span>
+    </button>
+    <a href="https://t.me/rstrgvmxm" class="btn btn-ghost btn-icon" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.5L2.7 12c-1 .4-1 1.7.1 2l4.6 1.5 1.8 5.6c.2.7 1 .9 1.6.4l2.6-2.3 4.7 3.5c.7.5 1.7.1 1.9-.7l3.4-15.6c.2-1-.7-1.7-1.7-1.4zM8.6 14.6l9-6.9c.3-.2.6.1.3.4l-7.5 7.4-.3 3.5-1.5-4.4z"/></svg>
+      <span data-i18n="btn_telegram">Message on Telegram</span>
+    </a>
+    <a href="https://www.tiktok.com/@noirmontuye" class="btn btn-ghost btn-icon" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8c-.9-.8-1.5-1.9-1.6-3.2h-3.1v13.4c0 1.5-1.2 2.7-2.7 2.7s-2.7-1.2-2.7-2.7 1.2-2.7 2.7-2.7c.3 0 .6.1.9.2V10.3c-.3 0-.6-.1-.9-.1-3.2 0-5.8 2.6-5.8 5.8s2.6 5.8 5.8 5.8 5.8-2.6 5.8-5.8V9.2c1.2.9 2.7 1.4 4.3 1.4V7.5c-1 0-1.9-.4-2.7-1.1-.4-.2-.7-.4-1-.6z"/></svg>
+      <span data-i18n="btn_tiktok">TikTok</span>
+    </a>
   </div>
 </section>
 
@@ -487,19 +507,19 @@
 <div id="contactModal" class="modal-overlay" onclick="if(event.target===this)closeContactModal()">
   <div class="modal-box">
     <button class="modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
-    <h3>Send a Message</h3>
-    <p class="modal-sub">Fill this in and it lands straight in my inbox.</p>
+    <h3 data-i18n="modal_h3">Send a Message</h3>
+    <p class="modal-sub" data-i18n="modal_sub">Fill this in and it lands straight in my inbox.</p>
     <form id="contactForm" onsubmit="return submitContactForm(event)">
-      <input type="text" name="name" placeholder="Your name" required>
-      <input type="email" name="email" placeholder="Your email" required>
-      <textarea name="message" placeholder="What are you working on?" rows="4" required></textarea>
-      <button type="submit" class="btn btn-primary" style="width:100%; border:none; font-family:inherit;">Send</button>
+      <input type="text" name="name" placeholder="Your name" required data-i18n-placeholder="ph_name">
+      <input type="email" name="email" placeholder="Your email" required data-i18n-placeholder="ph_email">
+      <textarea name="message" placeholder="What are you working on?" rows="4" required data-i18n-placeholder="ph_message"></textarea>
+      <button type="submit" class="btn btn-primary" style="width:100%; border:none; font-family:inherit;" data-i18n="btn_send">Send</button>
       <p id="formStatus" class="modal-status"></p>
     </form>
   </div>
 </div>
 
-<footer>© <span id="year"></span> noir.edit — VIDEO EDITOR</footer>
+<footer>© <span id="year"></span> noir.edit — <span data-i18n="footer_role">VIDEO EDITOR</span></footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -545,7 +565,7 @@
     const data = new FormData(form);
     status.textContent = 'Sending...';
     try{
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const res = await fetch('https://formspree.io/f/mzdnzqkw', {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
@@ -562,6 +582,100 @@
     }
     return false;
   }
+  // ---- language switch ----
+  const translations = {
+    en: {
+      nav_work:"Work", nav_services:"Services", nav_process:"Process", nav_about:"About", nav_contact:"Contact",
+      hero_title:'Video Editor<br>for <em>Brands</em> &amp; Creators',
+      hero_sub:"I create engaging short-form videos, ads and motion design that help businesses stand out on social media.",
+      btn_view_work:"View Work", btn_contact_me:"Contact Me", sr_label:"Showreel",
+      exp_eyebrow:"Expertise",
+      work_eyebrow:"Featured Work", work_h2:"Selected Projects",
+      w1_title:"Luxury Jewelry Ads", w1_desc:"Premium social ads for a jewelry brand.",
+      w2_title:"Financial Advisor", w2_desc:"Educational Instagram Reels.",
+      w3_title:"SaaS Promo", w3_desc:"Product walkthrough built to convert trial sign-ups.",
+      w4_title:"The Cost of Dream", w4_desc:"Cinematic motion design project — typography and pacing built for impact.",
+      services_eyebrow:"Services", services_h2:"What I Do",
+      svc1_title:"Short Form Editing", svc2_title:"Commercial Ads", svc3_title:"Motion Design", svc4_title:"Personal Brand Content",
+      process_eyebrow:"Process", process_h2:"How We Work Together",
+      p1_title:"Brief", p1_desc:"You share goals, footage and references.",
+      p2_title:"Editing", p2_desc:"I cut a first version built for retention.",
+      p3_title:"Feedback", p3_desc:"You review and request revisions.",
+      p4_title:"Delivery", p4_desc:"Final export, ready to publish.",
+      about_eyebrow:"About",
+      about_p:'I specialize in short-form editing with a focus on <em>clean visuals</em>, fast pacing and storytelling. My goal is to create videos that keep viewers watching and help brands communicate their message effectively.',
+      software_eyebrow:"Software",
+      testi_eyebrow:"Testimonial",
+      testi_context:"The brief: turn face-to-camera footage into polished, engaging Reels for a renovation company's ads and Instagram content.",
+      testi_quote:'"Great work. Really fast turnaround times. I will surely recommend."',
+      testi_who:"— Client, Renovation Company",
+      contact_eyebrow:"Contact",
+      contact_h2:"Let's create something<br>people actually watch.",
+      btn_email:"Email Me", btn_telegram:"Message on Telegram", btn_tiktok:"TikTok",
+      modal_h3:"Send a Message", modal_sub:"Fill this in and it lands straight in my inbox.",
+      ph_name:"Your name", ph_email:"Your email", ph_message:"What are you working on?", btn_send:"Send",
+      footer_role:"VIDEO EDITOR"
+    },
+    uk: {
+      nav_work:"Роботи", nav_services:"Послуги", nav_process:"Процес", nav_about:"Про мене", nav_contact:"Контакти",
+      hero_title:'Відеомонтажер<br>для <em>брендів</em> і блогерів',
+      hero_sub:"Створюю яскраві короткі відео, рекламу та моушн-дизайн, які допомагають бізнесу виділятися в соцмережах.",
+      btn_view_work:"Дивитись роботи", btn_contact_me:"Зв'язатися", sr_label:"Шоурил",
+      exp_eyebrow:"Спеціалізація",
+      work_eyebrow:"Обрані роботи", work_h2:"Проєкти",
+      w1_title:"Реклама ювелірного бренду", w1_desc:"Преміальна реклама для ювелірного бренду в соцмережах.",
+      w2_title:"Фінансовий консультант", w2_desc:"Освітні Instagram Reels.",
+      w3_title:"Промо для SaaS", w3_desc:"Огляд продукту, створений для конверсії у пробні підписки.",
+      w4_title:"The Cost of Dream", w4_desc:"Кінематографічний моушн-дизайн — типографіка та темп заради враження.",
+      services_eyebrow:"Послуги", services_h2:"Що я роблю",
+      svc1_title:"Коротке відео", svc2_title:"Комерційна реклама", svc3_title:"Моушн-дизайн", svc4_title:"Контент для особистого бренду",
+      process_eyebrow:"Процес", process_h2:"Як ми працюємо",
+      p1_title:"Бриф", p1_desc:"Ви ділитесь цілями, матеріалом і референсами.",
+      p2_title:"Монтаж", p2_desc:"Я монтую першу версію, орієнтовану на утримання уваги.",
+      p3_title:"Правки", p3_desc:"Ви переглядаєте та надаєте фідбек.",
+      p4_title:"Здача", p4_desc:"Фінальний експорт, готовий до публікації.",
+      about_eyebrow:"Про мене",
+      about_p:'Спеціалізуюсь на короткому відео з акцентом на <em>чистій візуальній подачі</em>, динамічному темпі та сторітелінгу. Моя мета — відео, які утримують глядача та допомагають бренду доносити меседж.',
+      software_eyebrow:"Програми",
+      testi_eyebrow:"Відгук",
+      testi_context:"Завдання: перетворити відео «розмова на камеру» на якісні, залучаючі Reels для реклами та контенту ремонтної компанії в Instagram.",
+      testi_quote:"\"Чудова робота. Дуже швидкі терміни виконання. Обов'язково порекомендую.\"",
+      testi_who:"— Клієнт, ремонтна компанія",
+      contact_eyebrow:"Контакти",
+      contact_h2:"Створімо те,<br>що людям дійсно захочеться дивитись.",
+      btn_email:"Написати", btn_telegram:"Написати в Telegram", btn_tiktok:"TikTok",
+      modal_h3:"Написати повідомлення", modal_sub:"Заповніть форму — і воно одразу потрапить мені на пошту.",
+      ph_name:"Ваше ім'я", ph_email:"Ваш email", ph_message:"Над чим працюєте?", btn_send:"Надіслати",
+      footer_role:"ВІДЕОМОНТАЖЕР"
+    }
+  };
+
+  let currentLang = localStorage.getItem('site_lang') || 'en';
+
+  function applyLang(lang){
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+      const key = el.getAttribute('data-i18n-html');
+      if(translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+      const key = el.getAttribute('data-i18n-placeholder');
+      if(translations[lang][key] !== undefined) el.setAttribute('placeholder', translations[lang][key]);
+    });
+    document.documentElement.setAttribute('lang', lang === 'uk' ? 'uk' : 'en');
+    document.getElementById('langToggle').textContent = lang === 'en' ? 'UA' : 'EN';
+    currentLang = lang;
+    localStorage.setItem('site_lang', lang);
+  }
+
+  function toggleLang(){
+    applyLang(currentLang === 'en' ? 'uk' : 'en');
+  }
+
+  applyLang(currentLang);
 </script>
 
 </body>
