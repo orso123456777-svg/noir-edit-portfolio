@@ -354,7 +354,6 @@
       <video src="showreel.mp4" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; position:relative; z-index:1;"></video>
       <div class="sr-label" style="z-index:2; pointer-events:none;" data-i18n="sr_label">Showreel</div>
       <div class="sr-ratio" style="z-index:2; pointer-events:none;">16:9</div>
-      <div class="sr-tc" id="heroTc" style="z-index:2; pointer-events:none;">00:00:00:00</div>
     </div>
     <p class="backstory" style="border-top:none; padding-top:16px; margin-top:16px;" data-i18n="reel_desc">A quick cut of recent work — true crime storytelling, brand ads and motion pieces, edited for pacing, sound and mood.</p>
     <div class="skill-row">
@@ -608,23 +607,6 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  // signature element: a live "playhead" timecode, like a running NLE timeline
-  let frame = 0;
-  const fps = 24;
-  function fmt(f){
-    const total = Math.floor(f/fps);
-    const h = String(Math.floor(total/3600)).padStart(2,'0');
-    const m = String(Math.floor((total%3600)/60)).padStart(2,'0');
-    const s = String(total%60).padStart(2,'0');
-    const ff = String(f%fps).padStart(2,'0');
-    return `${h}:${m}:${s}:${ff}`;
-  }
-  setInterval(()=>{
-    frame++;
-    const t = fmt(frame);
-    document.getElementById('heroTc').textContent = t;
-  }, 1000/fps);
 
   // click-to-play: swap the real thumbnail for a live embed only when clicked
   function playInlineVideo(el, videoId){
