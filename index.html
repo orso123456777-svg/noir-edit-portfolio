@@ -200,6 +200,10 @@
   .work-info p{color:var(--muted); font-size:18px; font-weight:400; margin-top:8px;}
   .work-tags{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;}
   .tag-sm{font-family:var(--mono); font-size:11px; color:var(--teal); border:1px solid var(--teal-dim); padding:3px 9px; border-radius:12px;}
+  .backstory{color:var(--muted); font-size:14.5px; line-height:1.55; margin-top:14px; padding-top:14px; border-top:1px solid var(--line);}
+  .skill-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:14px;}
+  .skill-item{display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px; color:var(--orange); text-transform:uppercase; letter-spacing:0.3px;}
+  .skill-item svg{flex-shrink:0;}
   @media (max-width:820px){ .work-grid{grid-template-columns:1fr;} }
 
   /* ---------- SERVICES ---------- */
@@ -345,13 +349,22 @@
       <a href="#contact" class="btn btn-ghost" data-i18n="btn_contact_me">Contact Me</a>
     </div>
   </div>
-  <div class="showreel-frame">
-    <div class="sr-label" data-i18n="sr_label">Showreel</div>
-    <div class="sr-ratio">16:9</div>
-    <div class="play-btn">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="6,4 20,12 6,20"/></svg>
+  <div>
+    <div class="showreel-frame" style="background:#000;">
+      <video src="showreel.mp4" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; position:relative; z-index:1;"></video>
+      <div class="sr-label" style="z-index:2; pointer-events:none;" data-i18n="sr_label">Showreel</div>
+      <div class="sr-ratio" style="z-index:2; pointer-events:none;">16:9</div>
+      <div class="sr-tc" id="heroTc" style="z-index:2; pointer-events:none;">00:00:00:00</div>
     </div>
-    <div class="sr-tc" id="heroTc">00:00:00:00</div>
+    <p class="backstory" style="border-top:none; padding-top:16px; margin-top:16px;" data-i18n="reel_desc">A quick cut of recent work — true crime storytelling, brand ads and motion pieces, edited for pacing, sound and mood.</p>
+    <div class="skill-row">
+      <span class="skill-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5C10 3.5 6 3 3 4v14c3-1 7-.5 9 1 2-1.5 6-2 9-1V4c-3-1-7-.5-9 1z"/><path d="M12 5v14"/></svg><span data-i18n="skill_story">Storytelling</span></span>
+      <span class="skill-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4M8 6v12M13 3v18M18 8v8"/></svg><span data-i18n="skill_sound">Sound Design</span></span>
+      <span class="skill-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="11" height="11" rx="2"/><rect x="9" y="9" width="12" height="12" rx="2"/></svg><span data-i18n="skill_motion">Motion Design</span></span>
+      <span class="skill-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/></svg><span data-i18n="skill_color">Color Grade</span></span>
+      <span class="skill-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4"/><path d="M8 12h8M8 16h6"/></svg><span data-i18n="skill_script">Scripting</span></span>
+      <span class="skill-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1v.5h5v-.5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/><path d="M9.5 19h5M10.5 21.5h3"/></svg><span data-i18n="skill_concept">Concepting</span></span>
+    </div>
   </div>
 </section>
 
@@ -390,6 +403,12 @@
           <h3 data-i18n="w1_title">Luxury Jewelry Ads</h3>
           <p data-i18n="w1_desc">Premium social ads for a jewelry brand.</p>
           <div class="work-tags"><span class="tag-sm">Jewelry</span><span class="tag-sm">Paid Ads</span></div>
+          <p class="backstory" data-i18n="w1_story">My role was editor. The brand needed paid social ads that felt expensive without slowing down the fast scroll-stopping pace ads require — that balance was the core problem to solve.</p>
+          <div class="skill-row">
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/></svg><span data-i18n="skill_color">Color Grade</span></span>
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4M8 6v12M13 3v18M18 8v8"/></svg><span data-i18n="skill_sound">Sound Design</span></span>
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 13l3-2M12 6V4M9 2h6"/></svg><span data-i18n="skill_pacing">Pacing</span></span>
+          </div>
         </div>
       </div>
 
@@ -402,6 +421,11 @@
           <h3 data-i18n="w2_title">Financial Advisor</h3>
           <p data-i18n="w2_desc">Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.</p>
           <div class="work-tags"><span class="tag-sm">Finance</span><span class="tag-sm">Reels</span></div>
+          <p class="backstory" data-i18n="w2_story">My role is editor on an ongoing series. The problem: dense financial advice in talking-head footage tends to lose viewers fast — I edit for pacing and rhythm to keep it watchable without dumbing it down.</p>
+          <div class="skill-row">
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 13l3-2M12 6V4M9 2h6"/></svg><span data-i18n="skill_pacing">Pacing</span></span>
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4M8 6v12M13 3v18M18 8v8"/></svg><span data-i18n="skill_sound">Sound Design</span></span>
+          </div>
         </div>
       </div>
 
@@ -414,6 +438,11 @@
           <h3 data-i18n="w3_title">SaaS Promo</h3>
           <p data-i18n="w3_desc">Product walkthrough built to convert trial sign-ups.</p>
           <div class="work-tags"><span class="tag-sm">SaaS</span><span class="tag-sm">Promo</span></div>
+          <p class="backstory" data-i18n="w3_story">My role was editor. The problem: explain a product's value before viewers scroll past — I cut for clarity so the offer lands within the first three seconds.</p>
+          <div class="skill-row">
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/></svg><span data-i18n="skill_color">Color Grade</span></span>
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 13l3-2M12 6V4M9 2h6"/></svg><span data-i18n="skill_pacing">Pacing</span></span>
+          </div>
         </div>
       </div>
 
@@ -427,6 +456,12 @@
           <h3 data-i18n="w4_title">The Cost of Dream</h3>
           <p data-i18n="w4_desc">Cinematic motion design project — typography and pacing built for impact.</p>
           <div class="work-tags"><span class="tag-sm">Motion</span><span class="tag-sm">Cinematic</span><span class="tag-sm">After Effects</span></div>
+          <p class="backstory" data-i18n="w4_story">My role was motion designer. A personal piece exploring whether typography and rhythm alone can carry emotional weight — the problem was building tension with no dialogue to lean on.</p>
+          <div class="skill-row">
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="11" height="11" rx="2"/><rect x="9" y="9" width="12" height="12" rx="2"/></svg><span data-i18n="skill_motion">Motion Design</span></span>
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/></svg><span data-i18n="skill_color">Color Grade</span></span>
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4M8 6v12M13 3v18M18 8v8"/></svg><span data-i18n="skill_sound">Sound Design</span></span>
+          </div>
         </div>
       </div>
 
@@ -638,12 +673,19 @@
       hero_title:'Video Editor<br>for <em>Brands</em> &amp; Creators',
       hero_sub:"I create engaging short-form videos, ads and motion design that help businesses stand out on social media.",
       btn_view_work:"View Work", btn_contact_me:"Contact Me", sr_label:"Showreel",
+      reel_desc:"A quick cut of recent work — true crime storytelling, brand ads and motion pieces, edited for pacing, sound and mood.",
+      skill_story:"Storytelling", skill_sound:"Sound Design", skill_motion:"Motion Design",
+      skill_color:"Color Grade", skill_script:"Scripting", skill_concept:"Concepting", skill_pacing:"Pacing",
       exp_eyebrow:"Expertise",
       work_eyebrow:"Featured Work", work_h2:"Selected Projects",
       w1_title:"Luxury Jewelry Ads", w1_desc:"Premium social ads for a jewelry brand.",
+      w1_story:"My role was editor. The brand needed paid social ads that felt expensive without slowing down the fast scroll-stopping pace ads require — that balance was the core problem to solve.",
       w2_title:"Financial Advisor", w2_desc:"Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.",
+      w2_story:"My role is editor on an ongoing series. The problem: dense financial advice in talking-head footage tends to lose viewers fast — I edit for pacing and rhythm to keep it watchable without dumbing it down.",
       w3_title:"SaaS Promo", w3_desc:"Product walkthrough built to convert trial sign-ups.",
+      w3_story:"My role was editor. The problem: explain a product's value before viewers scroll past — I cut for clarity so the offer lands within the first three seconds.",
       w4_title:"The Cost of Dream", w4_desc:"Cinematic motion design project — typography and pacing built for impact.",
+      w4_story:"My role was motion designer. A personal piece exploring whether typography and rhythm alone can carry emotional weight — the problem was building tension with no dialogue to lean on.",
       services_eyebrow:"Services", services_h2:"What I Do",
       svc1_title:"Short Form Editing", svc2_title:"Commercial Ads", svc3_title:"Motion Design", svc4_title:"Personal Brand Content",
       process_eyebrow:"Process", process_h2:"How We Work Together",
@@ -670,12 +712,19 @@
       hero_title:'Відеомонтажер<br>для <em>брендів</em> і блогерів',
       hero_sub:"Створюю яскраві короткі відео, рекламу та моушн-дизайн, які допомагають бізнесу виділятися в соцмережах.",
       btn_view_work:"Дивитись роботи", btn_contact_me:"Зв'язатися", sr_label:"Шоурил",
+      reel_desc:"Короткий добірка нещодавніх робіт — тру-крайм сторітелінг, реклама брендів і моушн-проєкти, змонтовані заради темпу, звуку та настрою.",
+      skill_story:"Сторітелінг", skill_sound:"Саунд-дизайн", skill_motion:"Моушн-дизайн",
+      skill_color:"Кольорокорекція", skill_script:"Сценарій", skill_concept:"Концепція", skill_pacing:"Темп",
       exp_eyebrow:"Спеціалізація",
       work_eyebrow:"Обрані роботи", work_h2:"Проєкти",
       w1_title:"Реклама ювелірного бренду", w1_desc:"Преміальна реклама для ювелірного бренду в соцмережах.",
+      w1_story:"Моя роль — монтажер. Бренду потрібна була реклама, яка виглядає дорого, але не втрачає швидкого темпу, потрібного для реклами в соцмережах — саме цей баланс і був головним завданням.",
       w2_title:"Фінансовий консультант", w2_desc:"Постійна серія для Флавіо, італійського фінансового консультанта — 30+ Reels і рахунок продовжується.",
+      w2_story:"Моя роль — монтажер постійної серії. Проблема: складна фінансова інформація в форматі «розмова на камеру» швидко втрачає глядача — я монтую заради темпу й ритму, щоб контент залишався цікавим, не спрощуючи суть.",
       w3_title:"Промо для SaaS", w3_desc:"Огляд продукту, створений для конверсії у пробні підписки.",
+      w3_story:"Моя роль — монтажер. Проблема: пояснити цінність продукту до того, як глядач проскролить далі — я монтую заради ясності, щоб суть пропозиції була зрозуміла в перші три секунди.",
       w4_title:"The Cost of Dream", w4_desc:"Кінематографічний моушн-дизайн — типографіка та темп заради враження.",
+      w4_story:"Моя роль — моушн-дизайнер. Особистий проєкт, де я досліджував, чи може сама лише типографіка й ритм нести емоційне навантаження — завдання полягало у створенні напруги без жодного діалогу.",
       services_eyebrow:"Послуги", services_h2:"Що я роблю",
       svc1_title:"Коротке відео", svc2_title:"Комерційна реклама", svc3_title:"Моушн-дизайн", svc4_title:"Контент для особистого бренду",
       process_eyebrow:"Процес", process_h2:"Як ми працюємо",
