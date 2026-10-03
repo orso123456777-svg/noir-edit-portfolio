@@ -206,6 +206,11 @@
   .work-info{padding:22px 24px 26px;}
   .work-info h3{font-size:clamp(22px,3vw,32px); text-transform:uppercase; letter-spacing:0.3px;}
   .work-info p{color:var(--muted); font-size:18px; font-weight:400; margin-top:8px;}
+  .reel-badge{
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    font-family:var(--mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase;
+    color:#fff; background:rgba(0,0,0,0.45); padding:6px 14px; border-radius:20px;
+  }
   .carousel{
     position:relative; overflow:hidden; border-radius:6px;
     aspect-ratio:9/16; max-height:480px; margin:0 auto;
@@ -443,10 +448,8 @@
       </div>
 
       <div class="work-card">
-        <div class="work-info" style="padding-bottom:0;">
-          <h3 data-i18n="w2_title">Talking Head Videos</h3>
-        </div>
         <div class="carousel" id="carousel-w2">
+          <div class="reel-badge" style="pointer-events:none; z-index:4;" data-i18n="w2_title">Talking Head Videos</div>
           <div class="carousel-track" id="track-w2">
             <div class="carousel-slide" style="background:#000;">
               <video src="financial-advisor.mp4" controls playsinline preload="metadata"></video>
@@ -462,7 +465,7 @@
           <div class="carousel-dots" id="dots-w2"></div>
         </div>
         <div class="work-info">
-          <p data-i18n="w2_desc">Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.</p>
+          <p id="desc-w2" data-i18n="w2_desc">Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.</p>
           <div class="work-tags"><span class="tag-sm">Finance</span><span class="tag-sm">Reels</span></div>
           <p class="backstory" data-i18n="w2_story">My role is editor on an ongoing series. The problem: dense financial advice in talking-head footage tends to lose viewers fast — I edit for pacing and rhythm to keep it watchable without dumbing it down.</p>
           <div class="skill-row">
@@ -657,6 +660,26 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // per-slide descriptions: shown under the carousel, swapped when the slide changes
+  const slideDescriptions = {
+    w2: [
+      {
+        en:"Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.",
+        uk:"Постійна серія для Флавіо, італійського фінансового консультанта — 30+ Reels і рахунок продовжується."
+      },
+      {
+        en:"A cinematic vertical edit for Instagram Reels built around a talking-head concept — cinematic pacing and cuts, custom motion design and animated graphics, and layered sound design for a premium feel. Full edit and finish in Adobe Premiere Pro.",
+        uk:"Кінематографічний вертикальний монтаж для Instagram Reels у форматі talking-head — кінематографічний темп і монтаж, авторська моушн-графіка та багатошаровий саунд-дизайн заради преміального відчуття. Повний монтаж і фінішинг в Adobe Premiere Pro."
+      }
+    ]
+  };
+  function updateSlideDescription(id, index){
+    const el = document.getElementById('desc-' + id);
+    const entry = slideDescriptions[id] && slideDescriptions[id][index];
+    if(!el || !entry) return;
+    el.textContent = entry[currentLang] || entry.en;
+  }
+
   // generic carousel (per work-card, switch between multiple videos)
   const carouselState = {};
   function initCarousel(id){
@@ -689,6 +712,7 @@
       d.classList.toggle('active', i === index);
     });
     track.querySelectorAll('video').forEach(v => v.pause());
+    updateSlideDescription(id, index);
   }
   function carouselMove(id, dir){
     carouselGoTo(id, carouselState[id] + dir);
@@ -819,7 +843,7 @@
       work_eyebrow:"Обрані роботи", work_h2:"Проєкти",
       w1_title:"Реклама ювелірного бренду", w1_desc:"Преміальна реклама для ювелірного бренду в соцмережах.",
       w1_story:"Моя роль — монтажер. Бренду потрібна була реклама, яка виглядає дорого, але не втрачає швидкого темпу, потрібного для реклами в соцмережах — саме цей баланс і був головним завданням.",
-      w2_title:"Відео «на камеру»", w2_desc:"Постійна серія для Флавіо, італійського фінансового консультанта — 30+ Reels і рахунок продовжується.",
+      w2_title:"Talking Head відео", w2_desc:"Постійна серія для Флавіо, італійського фінансового консультанта — 30+ Reels і рахунок продовжується.",
       w2_story:"Моя роль — монтажер постійної серії. Проблема: складна фінансова інформація в форматі «розмова на камеру» швидко втрачає глядача — я монтую заради темпу й ритму, щоб контент залишався цікавим, не спрощуючи суть.",
       w3_title:"Промо для SaaS", w3_desc:"Огляд продукту, створений для конверсії у пробні підписки.",
       w3_story:"Моя роль — монтажер. Проблема: пояснити цінність продукту до того, як глядач проскролить далі — я монтую заради ясності, щоб суть пропозиції була зрозуміла в перші три секунди.",
@@ -867,6 +891,7 @@
     document.getElementById('langToggle').textContent = lang === 'en' ? 'UA' : 'EN';
     currentLang = lang;
     localStorage.setItem('site_lang', lang);
+    Object.keys(carouselState).forEach(id => updateSlideDescription(id, carouselState[id]));
   }
 
   function toggleLang(){
