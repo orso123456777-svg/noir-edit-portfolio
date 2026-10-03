@@ -130,6 +130,14 @@
   .btn-ghost{border:1px solid var(--line); color:var(--text);}
   .btn-ghost:hover{border-color:var(--teal);}
 
+  .reel-tabs{display:flex; gap:8px; margin-bottom:14px;}
+  .reel-tab{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.5px; padding:9px 16px;
+    border-radius:20px; border:1px solid var(--line); background:none; color:var(--muted); cursor:pointer;
+    transition:all .2s ease;
+  }
+  .reel-tab.active{border-color:var(--orange); color:var(--orange); background:rgba(200,168,107,0.12);}
+  .reel-tab:hover{color:var(--text);}
   .showreel-frame{
     position:relative; aspect-ratio:16/10; border-radius:6px; overflow:hidden;
     background:linear-gradient(135deg, var(--teal-dim) 0%, #080808 45%, var(--orange) 130%);
@@ -350,10 +358,14 @@
     </div>
   </div>
   <div>
-    <div class="showreel-frame" style="background:#000;">
-      <video src="showreel.mp4" poster="showreel-thumb.jpg" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; position:relative; z-index:1;"></video>
+    <div class="reel-tabs">
+      <button class="reel-tab active" id="tabFast" onclick="switchReel('fast')" data-i18n="tab_fast">15s Cut</button>
+      <button class="reel-tab" id="tabFull" onclick="switchReel('full')" data-i18n="tab_full">Full Reel</button>
+    </div>
+    <div class="showreel-frame" id="showreelFrame" style="background:#000; aspect-ratio:9/16; max-height:480px; margin:0 auto;">
+      <video id="showreelVideo" src="showreel-fast.mp4" poster="" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; position:relative; z-index:1;"></video>
       <div class="sr-label" style="z-index:2; pointer-events:none;" data-i18n="sr_label">Showreel</div>
-      <div class="sr-ratio" style="z-index:2; pointer-events:none;">16:9</div>
+      <div class="sr-ratio" id="showreelRatio" style="z-index:2; pointer-events:none;">9:16</div>
     </div>
     <p class="backstory" style="border-top:none; padding-top:16px; margin-top:16px;" data-i18n="reel_desc">A quick cut of recent work — true crime storytelling, brand ads and motion pieces, edited for pacing, sound and mood.</p>
     <div class="skill-row">
@@ -612,6 +624,35 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // showreel fast/full toggle
+  function switchReel(mode){
+    const video = document.getElementById('showreelVideo');
+    const frame = document.getElementById('showreelFrame');
+    const ratio = document.getElementById('showreelRatio');
+    const tabFast = document.getElementById('tabFast');
+    const tabFull = document.getElementById('tabFull');
+    if(mode === 'fast'){
+      video.src = 'showreel-fast.mp4';
+      video.removeAttribute('poster');
+      frame.style.aspectRatio = '9/16';
+      frame.style.maxHeight = '480px';
+      frame.style.margin = '0 auto';
+      ratio.textContent = '9:16';
+      tabFast.classList.add('active');
+      tabFull.classList.remove('active');
+    } else {
+      video.src = 'showreel.mp4';
+      video.setAttribute('poster','showreel-thumb.jpg');
+      frame.style.aspectRatio = '16/10';
+      frame.style.maxHeight = 'none';
+      frame.style.margin = '0';
+      ratio.textContent = '16:9';
+      tabFull.classList.add('active');
+      tabFast.classList.remove('active');
+    }
+    video.load();
+  }
+
   // click-to-play: swap the real thumbnail for a live embed only when clicked
   function playInlineVideo(el, videoId){
     el.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0"
@@ -660,6 +701,7 @@
       hero_sub:"I create engaging short-form videos, ads and motion design that help businesses stand out on social media.",
       btn_view_work:"View Work", btn_contact_me:"Contact Me", sr_label:"Showreel",
       reel_desc:"A quick cut of recent work — true crime storytelling, brand ads and motion pieces, edited for pacing, sound and mood.",
+      tab_fast:"15s Cut", tab_full:"Full Reel",
       skill_story:"Storytelling", skill_sound:"Sound Design", skill_motion:"Motion Design",
       skill_color:"Color Grade", skill_script:"Scripting", skill_concept:"Concepting", skill_pacing:"Pacing",
       exp_eyebrow:"Expertise",
@@ -699,6 +741,7 @@
       hero_sub:"Створюю яскраві короткі відео, рекламу та моушн-дизайн, які допомагають бізнесу виділятися в соцмережах.",
       btn_view_work:"Дивитись роботи", btn_contact_me:"Зв'язатися", sr_label:"Шоурил",
       reel_desc:"Короткий добірка нещодавніх робіт — тру-крайм сторітелінг, реклама брендів і моушн-проєкти, змонтовані заради темпу, звуку та настрою.",
+      tab_fast:"15 сек", tab_full:"Повний рил",
       skill_story:"Сторітелінг", skill_sound:"Саунд-дизайн", skill_motion:"Моушн-дизайн",
       skill_color:"Кольорокорекція", skill_script:"Сценарій", skill_concept:"Концепція", skill_pacing:"Темп",
       exp_eyebrow:"Спеціалізація",
