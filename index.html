@@ -206,6 +206,25 @@
   .work-info{padding:22px 24px 26px;}
   .work-info h3{font-size:clamp(22px,3vw,32px); text-transform:uppercase; letter-spacing:0.3px;}
   .work-info p{color:var(--muted); font-size:18px; font-weight:400; margin-top:8px;}
+  .carousel{
+    position:relative; overflow:hidden; border-radius:6px;
+    aspect-ratio:9/16; max-height:480px; margin:0 auto;
+  }
+  .carousel-track{display:flex; height:100%; transition:transform .35s ease;}
+  .carousel-slide{flex:0 0 100%; height:100%; position:relative;}
+  .carousel-slide video{width:100%; height:100%; object-fit:cover; display:block;}
+  .carousel-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
+    background:rgba(0,0,0,0.5); color:#fff; font-size:20px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .carousel-arrow:hover{background:rgba(0,0,0,0.75);}
+  .carousel-arrow.left{left:10px;}
+  .carousel-arrow.right{right:10px;}
+  .carousel-dots{position:absolute; bottom:12px; left:0; right:0; display:flex; gap:6px; justify-content:center; z-index:3;}
+  .carousel-dot{width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; transition:background .2s;}
+  .carousel-dot.active{background:#fff;}
   .work-tags{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;}
   .tag-sm{font-family:var(--mono); font-size:11px; color:var(--teal); border:1px solid var(--teal-dim); padding:3px 9px; border-radius:12px;}
   .backstory{color:var(--muted); font-size:14.5px; line-height:1.55; margin-top:14px; padding-top:14px; border-top:1px solid var(--line);}
@@ -424,18 +443,32 @@
       </div>
 
       <div class="work-card">
-        <div class="work-thumb h916" style="background:#000;">
-          <video src="financial-advisor.mp4" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover;"></video>
-          <div class="sr-ratio" style="pointer-events:none;">9:16</div>
+        <div class="work-info" style="padding-bottom:0;">
+          <h3 data-i18n="w2_title">Talking Head Videos</h3>
+        </div>
+        <div class="carousel" id="carousel-w2">
+          <div class="carousel-track" id="track-w2">
+            <div class="carousel-slide" style="background:#000;">
+              <video src="financial-advisor.mp4" controls playsinline preload="metadata"></video>
+              <div class="sr-ratio" style="pointer-events:none;">9:16</div>
+            </div>
+            <div class="carousel-slide" style="background:#000;">
+              <video src="upwork-reel.mp4" controls playsinline preload="metadata"></video>
+              <div class="sr-ratio" style="pointer-events:none;">9:16</div>
+            </div>
+          </div>
+          <button class="carousel-arrow left" onclick="carouselMove('w2',-1)" aria-label="Previous">‹</button>
+          <button class="carousel-arrow right" onclick="carouselMove('w2',1)" aria-label="Next">›</button>
+          <div class="carousel-dots" id="dots-w2"></div>
         </div>
         <div class="work-info">
-          <h3 data-i18n="w2_title">Financial Advisor</h3>
           <p data-i18n="w2_desc">Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.</p>
           <div class="work-tags"><span class="tag-sm">Finance</span><span class="tag-sm">Reels</span></div>
           <p class="backstory" data-i18n="w2_story">My role is editor on an ongoing series. The problem: dense financial advice in talking-head footage tends to lose viewers fast — I edit for pacing and rhythm to keep it watchable without dumbing it down.</p>
           <div class="skill-row">
             <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 13l3-2M12 6V4M9 2h6"/></svg><span data-i18n="skill_pacing">Pacing</span></span>
             <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4M8 6v12M13 3v18M18 8v8"/></svg><span data-i18n="skill_sound">Sound Design</span></span>
+            <span class="skill-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="11" height="11" rx="2"/><rect x="9" y="9" width="12" height="12" rx="2"/></svg><span data-i18n="skill_motion">Motion Design</span></span>
           </div>
         </div>
       </div>
@@ -624,6 +657,44 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // generic carousel (per work-card, switch between multiple videos)
+  const carouselState = {};
+  function initCarousel(id){
+    const track = document.getElementById('track-' + id);
+    const dotsWrap = document.getElementById('dots-' + id);
+    if(!track) return;
+    const count = track.children.length;
+    carouselState[id] = 0;
+    dotsWrap.innerHTML = '';
+    if(count <= 1){
+      const carousel = document.getElementById('carousel-' + id);
+      const arrows = carousel.querySelectorAll('.carousel-arrow');
+      arrows.forEach(a => a.style.display = 'none');
+      return;
+    }
+    for(let i=0;i<count;i++){
+      const dot = document.createElement('span');
+      dot.className = 'carousel-dot' + (i===0 ? ' active' : '');
+      dot.onclick = () => carouselGoTo(id, i);
+      dotsWrap.appendChild(dot);
+    }
+  }
+  function carouselGoTo(id, index){
+    const track = document.getElementById('track-' + id);
+    const count = track.children.length;
+    index = ((index % count) + count) % count;
+    carouselState[id] = index;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    document.querySelectorAll('#dots-' + id + ' .carousel-dot').forEach((d,i)=>{
+      d.classList.toggle('active', i === index);
+    });
+    track.querySelectorAll('video').forEach(v => v.pause());
+  }
+  function carouselMove(id, dir){
+    carouselGoTo(id, carouselState[id] + dir);
+  }
+  document.querySelectorAll('.carousel').forEach(c => initCarousel(c.id.replace('carousel-','')));
+
   // showreel fast/full toggle
   function switchReel(mode){
     const video = document.getElementById('showreelVideo');
@@ -708,7 +779,7 @@
       work_eyebrow:"Featured Work", work_h2:"Selected Projects",
       w1_title:"Luxury Jewelry Ads", w1_desc:"Premium social ads for a jewelry brand.",
       w1_story:"My role was editor. The brand needed paid social ads that felt expensive without slowing down the fast scroll-stopping pace ads require — that balance was the core problem to solve.",
-      w2_title:"Financial Advisor", w2_desc:"Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.",
+      w2_title:"Talking Head Videos", w2_desc:"Ongoing series for Flavio, an Italian financial advisor — 30+ Reels and counting.",
       w2_story:"My role is editor on an ongoing series. The problem: dense financial advice in talking-head footage tends to lose viewers fast — I edit for pacing and rhythm to keep it watchable without dumbing it down.",
       w3_title:"SaaS Promo", w3_desc:"Product walkthrough built to convert trial sign-ups.",
       w3_story:"My role was editor. The problem: explain a product's value before viewers scroll past — I cut for clarity so the offer lands within the first three seconds.",
@@ -748,7 +819,7 @@
       work_eyebrow:"Обрані роботи", work_h2:"Проєкти",
       w1_title:"Реклама ювелірного бренду", w1_desc:"Преміальна реклама для ювелірного бренду в соцмережах.",
       w1_story:"Моя роль — монтажер. Бренду потрібна була реклама, яка виглядає дорого, але не втрачає швидкого темпу, потрібного для реклами в соцмережах — саме цей баланс і був головним завданням.",
-      w2_title:"Фінансовий консультант", w2_desc:"Постійна серія для Флавіо, італійського фінансового консультанта — 30+ Reels і рахунок продовжується.",
+      w2_title:"Відео «на камеру»", w2_desc:"Постійна серія для Флавіо, італійського фінансового консультанта — 30+ Reels і рахунок продовжується.",
       w2_story:"Моя роль — монтажер постійної серії. Проблема: складна фінансова інформація в форматі «розмова на камеру» швидко втрачає глядача — я монтую заради темпу й ритму, щоб контент залишався цікавим, не спрощуючи суть.",
       w3_title:"Промо для SaaS", w3_desc:"Огляд продукту, створений для конверсії у пробні підписки.",
       w3_story:"Моя роль — монтажер. Проблема: пояснити цінність продукту до того, як глядач проскролить далі — я монтую заради ясності, щоб суть пропозиції була зрозуміла в перші три секунди.",
